@@ -33,11 +33,11 @@ class BinaryTree {
         this.root = this.deleteNode(this.root, value);
     }
     deleteNode(node, value) {
-        if (node === null) return;
+        if (node === null) return null;
         if (value < node.data) {
-            node.left = deleteNode(node.left, value)
+            node.left = this.deleteNode(node.left, value);
         } else if (value > node.data) {
-            node.right = deleteNote(node.right, value);
+            node.right = this.deleteNode(node.right, value);
         } else if (node.left === null && node.right === null) {
             return null;
         } else if (node.left === null) {
@@ -50,6 +50,23 @@ class BinaryTree {
             node.right = this.deleteNode(node.right, minRight.data);
         }
         return node;
+    }
+    findMin(node) {
+        if (node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    }
+    find(value) {
+        return this.findNode(this.root, value);
+    }
+    findNode(node, value) {
+        if (node === null) return null;
+        if (node.data === value) {
+            return node;
+        } else {
+            return node.data < value ? this.findNode(node.right, value) : this.findNode(node.left, value);
+        }
     }
 }
 
