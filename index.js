@@ -5,3 +5,7 @@ console.dir(tree, { depth: null });
 tree.insert(9);
 console.log("Tree after inserting 9:");
 console.dir(tree, { depth: null });
+tree.deleteItem(7);
+console.log("Tree after deleting 7:");
+console.dir(tree, {depth : null});
+console.log(tree.find(2));
