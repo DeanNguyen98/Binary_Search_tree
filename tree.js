@@ -68,6 +68,70 @@ class BinaryTree {
             return node.data < value ? this.findNode(node.right, value) : this.findNode(node.left, value);
         }
     }
+    //Breadth-first level-Order
+    levelOrder(callback) {
+        if (!callback) {
+            const queue = [];
+            const result = [];
+            if (this.root !== null) {
+                queue.push(this.root);
+                while (queue.length > 0) {
+                    const node = queue.shift();
+                    if (node) {
+                        result.push(node.data);
+                        if (node.left !== null) {
+                            queue.push(node.left);
+                        }
+                        if (node.right !== null) {
+                            queue.push(node.right);
+                        }
+                    }
+                }
+            }
+            return result;
+        } else {
+            const queue = [];
+            if (this.root !== null) {
+                queue.push(this.root);
+                while (queue.length > 0) {
+                    const node = queue.shift();
+                    callback(node);
+                    if (node.left  !== null) {
+                        queue.push(node.left);
+                    } else if (node.right !== null) {
+                        queue.push(node.right);
+                    }
+                } 
+            }
+        }
+    }
+    //Depth-first traversal
+    //InOrder: left subtree, root, right subtree
+    inOrder(callback, node = this.root, result = []) {
+       if (node === null) return;
+       this.inOrder(callback, node.left, result);
+       callback ? callback(node) : result.push(node.data);
+       this.inOrder(callback, node.right, result);
+       return result;
+    }
+    //PreOrder traversal: root, left subtree, right subtree
+    preOrder(callback, node = this.root, result = []) {
+        if (node === null) return;
+        callback ? callback(node) : result.push(node.data);
+        this.preOrder(callback, node.left, result);
+        this.preOrder(callback, node.right, result);
+        return result;
+    }
+    //PostOrder traversal: left subtree, right subtree, root;
+    postOrder(callback, node = this.root, result = []) {
+        if (node === null) return;
+        this.postOrder(callback, node.left, result);
+        this.postOrder(callback, node.right, result);
+        callback ? callback(node) : result.push(node.data);
+        return result;
+    }
+    
+
 }
 
 module.exports = BinaryTree;
