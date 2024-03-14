@@ -9,3 +9,5 @@ tree.deleteItem(7);
 console.log("Tree after deleting 7:");
 console.dir(tree, {depth : null});
 console.log(tree.find(2));
+console.log("Level Order traversal: ", tree.levelOrder());
+console.log("InOrder traversal: ", tree.inOrder());
