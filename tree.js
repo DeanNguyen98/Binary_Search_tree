@@ -130,7 +130,38 @@ class BinaryTree {
         callback ? callback(node) : result.push(node.data);
         return result;
     }
-    
+    height(node) {
+        if (node === null) {
+            return 0;
+        } else {
+            const leftheight = this.height(node.left);
+            const rightheight = this.height(node.right);
+            return Math.max(leftheight, rightheight) + 1;
+        }
+    }
+    depth(value, node = this.root, count = 0) {
+        if (node === null) return 0;
+        if (value === node.data) return count;
+        if (value < node.data) return this.depth(value, node.left, count++);
+        if (value > node.data) return this.depth(value, node.right, count++);
+    } 
+    isBalanced() {
+        return this.checkBalance(this.root) !== -1;
+    }
+    checkBalance(node) {
+        if (node === null) return 0;
+        const leftHeight = this.checkBalance(node.left);
+        const rightHeight = this.checkBalance(node.right);
+        if (leftHeight === -1|| rightHeight === -1 || Math.abs(leftHeight, rightHeight) > 1) {
+            return -1
+        } else {
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+    }
+    rebalance() {
+        const nodeValues = this.inOrder();
+        this.root = this.buildTree(nodeValues);
+    }
 
 }
 
